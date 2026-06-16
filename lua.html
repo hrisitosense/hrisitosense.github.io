@@ -1,0 +1,1081 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Cobalt.min.css">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Lua API / HrisitoSense</title>
+</head>
+
+<body>
+    <div class="pun">
+        <div id="brdmain">
+            <h2 id="gamesenseapiforlua"><span>HrisitoSense API for Lua</span></h2>
+            <div class="box block fakeform">
+                <h1 id="gamesense-api-for-lua">Table of contents</h1>
+                <p></p>
+                <ul>
+                    <li><a href="#client-set_event_callback">client.set_event_callback</a></li>
+                    <li><a href="#client-unset_event_callback">client.unset_event_callback</a></li>
+                    <li><a href="#client-log">client.log</a></li>
+                    <li><a href="#client-color_log">client.color_log</a></li>
+                    <li><a href="#client-error_log">client.error_log</a></li>
+                    <li><a href="#client-exec">client.exec</a></li>
+                    <li><a href="#client-userid_to_entindex">client.userid_to_entindex</a></li>
+                    <li><a href="#client-draw_debug_text">client.draw_debug_text</a></li>
+                    <li><a href="#client-draw_hitboxes">client.draw_hitboxes</a></li>
+                    <li><a href="#client-random_int">client.random_int</a></li>
+                    <li><a href="#client-random_float">client.random_float</a></li>
+                    <li><a href="#client-screen_size">client.screen_size</a></li>
+                    <li><a href="#client-visible">client.visible</a></li>
+                    <li><a href="#client-trace_line">client.trace_line</a></li>
+                    <li><a href="#client-trace_bullet">client.trace_bullet</a></li>
+                    <li><a href="#client-scale_damage">client.scale_damage</a></li>
+                    <li><a href="#client-delay_call">client.delay_call</a></li>
+                    <li><a href="#client-latency">client.latency</a></li>
+                    <li><a href="#client-camera_angles">client.camera_angles</a></li>
+                    <li><a href="#client-camera_position">client.camera_position</a></li>
+                    <li><a href="#client-timestamp">client.timestamp</a></li>
+                    <li><a href="#client-eye_position">client.eye_position</a></li>
+                    <li><a href="#client-set_clan_tag">client.set_clan_tag</a></li>
+                    <li><a href="#client-system_time">client.system_time</a></li>
+                    <li><a href="#client-unix_time">client.unix_time</a></li>
+                    <li><a href="#client-reload_active_scripts">client.reload_active_scripts</a></li>
+                    <li><a href="#client-create_interface">client.create_interface</a></li>
+                    <li><a href="#client-find_signature">client.find_signature</a></li>
+                    <li><a href="#client-key_state">client.key_state</a></li>
+                    <li><a href="#client-get_model_name">client.get_model_name</a></li>
+                    <li><a href="#client-register_esp_flag">client.register_esp_flag</a></li>
+                    <li><a href="#config-load">config.load</a></li>
+                    <li><a href="#config-export">config.export</a></li>
+                    <li><a href="#cvar-set_string">cvar.set_string</a></li>
+                    <li><a href="#cvar-get_string">cvar.get_string</a></li>
+                    <li><a href="#cvar-set_float">cvar.set_float</a></li>
+                    <li><a href="#cvar-set_raw_float">cvar.set_raw_float</a></li>
+                    <li><a href="#cvar-get_float">cvar.get_float</a></li>
+                    <li><a href="#cvar-set_int">cvar.set_int</a></li>
+                    <li><a href="#cvar-set_raw_int">cvar.set_raw_int</a></li>
+                    <li><a href="#cvar-get_int">cvar.get_int</a></li>
+                    <li><a href="#cvar-invoke_callback">cvar.invoke_callback</a></li>
+                    <li><a href="#database-write">database.write</a></li>
+                    <li><a href="#database-read">database.read</a></li>
+                    <li><a href="#entity-get_local_player">entity.get_local_player</a></li>
+                    <li><a href="#entity-get_all">entity.get_all</a></li>
+                    <li><a href="#entity-get_players">entity.get_players</a></li>
+                    <li><a href="#entity-get_game_rules">entity.get_game_rules</a></li>
+                    <li><a href="#entity-get_player_resource">entity.get_player_resource</a></li>
+                    <li><a href="#entity-get_classname">entity.get_classname</a></li>
+                    <li><a href="#entity-set_prop">entity.set_prop</a></li>
+                    <li><a href="#entity-get_prop">entity.get_prop</a></li>
+                    <li><a href="#entity-is_enemy">entity.is_enemy</a></li>
+                    <li><a href="#entity-is_alive">entity.is_alive</a></li>
+                    <li><a href="#entity-is_dormant">entity.is_dormant</a></li>
+                    <li><a href="#entity-get_player_name">entity.get_player_name</a></li>
+                    <li><a href="#entity-get_player_weapon">entity.get_player_weapon</a></li>
+                    <li><a href="#entity-hitbox_position">entity.hitbox_position</a></li>
+                    <li><a href="#entity-get_steam64">entity.get_steam64</a></li>
+                    <li><a href="#entity-get_bounding_box">entity.get_bounding_box</a></li>
+                    <li><a href="#entity-get_origin">entity.get_origin</a></li>
+                    <li><a href="#entity-get_esp_data">entity.get_esp_data</a></li>
+                    <li><a href="#globals-realtime">globals.realtime</a></li>
+                    <li><a href="#globals-curtime">globals.curtime</a></li>
+                    <li><a href="#globals-frametime">globals.frametime</a></li>
+                    <li><a href="#globals-absoluteframetime">globals.absoluteframetime</a></li>
+                    <li><a href="#globals-maxplayers">globals.maxplayers</a></li>
+                    <li><a href="#globals-tickcount">globals.tickcount</a></li>
+                    <li><a href="#globals-tickinterval">globals.tickinterval</a></li>
+                    <li><a href="#globals-framecount">globals.framecount</a></li>
+                    <li><a href="#globals-mapname">globals.mapname</a></li>
+                    <li><a href="#globals-lastoutgoingcommand">globals.lastoutgoingcommand</a></li>
+                    <li><a href="#globals-oldcommandack">globals.oldcommandack</a></li>
+                    <li><a href="#globals-commandack">globals.commandack</a></li>
+                    <li><a href="#globals-chokedcommands">globals.chokedcommands</a></li>
+                    <li><a href="#panorama-open">panorama.open</a></li>
+                    <li><a href="#panorama-loadstring">panorama.loadstring</a></li>
+                    <li><a href="#materialsystem-get_name">materialsystem.get_name</a></li>
+                    <li><a href="#materialsystem-reload">materialsystem.reload</a></li>
+                    <li><a href="#materialsystem-color_modulate">materialsystem.color_modulate</a></li>
+                    <li><a href="#materialsystem-alpha_modulate">materialsystem.alpha_modulate</a></li>
+                    <li><a href="#materialsystem-set_shader_param">materialsystem.set_shader_param</a></li>
+                    <li><a href="#materialsystem-get_shader_param">materialsystem.get_shader_param</a></li>
+                    <li><a href="#materialsystem-set_material_var_flag">materialsystem.set_material_var_flag</a></li>
+                    <li><a href="#materialsystem-get_material_var_flag">materialsystem.get_material_var_flag</a></li>
+                    <li><a href="#materialsystem-find_material">materialsystem.find_material</a></li>
+                    <li><a href="#materialsystem-find_materials">materialsystem.find_materials</a></li>
+                    <li><a href="#materialsystem-find_texture">materialsystem.find_texture</a></li>
+                    <li><a href="#materialsystem-get_model_materials">materialsystem.get_model_materials</a></li>
+                    <li><a href="#materialsystem-arms_material">materialsystem.arms_material</a></li>
+                    <li><a href="#materialsystem-chams_material">materialsystem.chams_material</a></li>
+                    <li><a href="#plist-set">plist.set</a></li>
+                    <li><a href="#plist-get">plist.get</a></li>
+                    <li><a href="#renderer-text">renderer.text</a></li>
+                    <li><a href="#renderer-measure_text">renderer.measure_text</a></li>
+                    <li><a href="#renderer-rectangle">renderer.rectangle</a></li>
+                    <li><a href="#renderer-line">renderer.line</a></li>
+                    <li><a href="#renderer-gradient">renderer.gradient</a></li>
+                    <li><a href="#renderer-circle">renderer.circle</a></li>
+                    <li><a href="#renderer-circle_outline">renderer.circle_outline</a></li>
+                    <li><a href="#renderer-triangle">renderer.triangle</a></li>
+                    <li><a href="#renderer-world_to_screen">renderer.world_to_screen</a></li>
+                    <li><a href="#renderer-indicator">renderer.indicator</a></li>
+                    <li><a href="#renderer-texture">renderer.texture</a></li>
+                    <li><a href="#renderer-load_svg">renderer.load_svg</a></li>
+                    <li><a href="#renderer-load_png">renderer.load_png</a></li>
+                    <li><a href="#renderer-load_jpg">renderer.load_jpg</a></li>
+                    <li><a href="#renderer-load_rgba">renderer.load_rgba</a></li>
+                    <li><a href="#ui-new_checkbox">ui.new_checkbox</a></li>
+                    <li><a href="#ui-new_slider">ui.new_slider</a></li>
+                    <li><a href="#ui-new_combobox">ui.new_combobox</a></li>
+                    <li><a href="#ui-new_multiselect">ui.new_multiselect</a></li>
+                    <li><a href="#ui-new_hotkey">ui.new_hotkey</a></li>
+                    <li><a href="#ui-new_button">ui.new_button</a></li>
+                    <li><a href="#ui-new_color_picker">ui.new_color_picker</a></li>
+                    <li><a href="#ui-new_textbox">ui.new_textbox</a></li>
+                    <li><a href="#ui-new_listbox">ui.new_listbox</a></li>
+                    <li><a href="#ui-new_string">ui.new_string</a></li>
+                    <li><a href="#ui-new_label">ui.new_label</a></li>
+                    <li><a href="#ui-reference">ui.reference</a></li>
+                    <li><a href="#ui-set">ui.set</a></li>
+                    <li><a href="#ui-get">ui.get</a></li>
+                    <li><a href="#ui-set_callback">ui.set_callback</a></li>
+                    <li><a href="#ui-set_visible">ui.set_visible</a></li>
+                    <li><a href="#ui-is_menu_open">ui.is_menu_open</a></li>
+                    <li><a href="#ui-mouse_position">ui.mouse_position</a></li>
+                    <li><a href="#ui-menu_position">ui.menu_position</a></li>
+                    <li><a href="#ui-menu_size">ui.menu_size</a></li>
+                    <li><a href="#ui-name">ui.name</a></li>
+                </ul>
+                <h3 id="client-set_event_callback">client.set_event_callback</h3>
+                <p><strong>syntax:</strong> <em>client.set_event_callback(event_name, callback)</em></p>
+                <p><code>event_name</code> - Name of the event.</p>
+                <p><code>callback</code> - Lua function to call when this event occurs.</p>
+                <p>Raises an error and prints a message in console upon failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-unset_event_callback">client.unset_event_callback</h3>
+                <p><strong>syntax:</strong> <em>client.unset_event_callback(event_name, callback)</em></p>
+                <p><code>event_name</code> - Name of the event</p>
+                <p><code>callback</code> - Lua function that was passed to set_event_callback</p>
+                <p>Removes a callback that was previously set using <code>set_event_callback</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-log">client.log</h3>
+                <p><strong>syntax:</strong> <em>client.log(msg, ...)</em></p>
+                <p><code>msg</code> - The message</p>
+                <p><code>...</code> - Optional comma-separated arguments to concatenate with msg.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-color_log">client.color_log</h3>
+                <p><strong>syntax:</strong> <em>client.color_log(r, g, b, msg, ...)</em></p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>msg</code> - The message</p>
+                <p><code>...</code> - Optional comma-separated arguments to concatenate with msg.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-error_log">client.error_log</h3>
+                <p><strong>syntax:</strong> <em>client.error_log(msg)</em></p>
+                <p><code>msg</code> - The error message</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-exec">client.exec</h3>
+                <p><strong>syntax:</strong> <em>client.exec(cmd, ...)</em></p>
+                <p><code>cmd</code> - The console command(s) to execute.</p>
+                <p><code>...</code> - Optional comma-separated arguments to concatenate with cmd.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-userid_to_entindex">client.userid_to_entindex</h3>
+                <p><strong>syntax:</strong> <em>client.userid_to_entindex(userid)</em></p>
+                <p><code>userid</code> - This is given by some game events.</p>
+                <p>Returns the entity index, or 0 on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-draw_debug_text">client.draw_debug_text</h3>
+                <p><strong>syntax:</strong> <em>client.draw_debug_text(x, y, z, line_offset, duration, r, g, b, a, ...)</em></p>
+                <p><code>x</code> - Position in world space</p>
+                <p><code>y</code> - Position in world space</p>
+                <p><code>z</code> - Position in world space</p>
+                <p><code>line_offset</code> - Used for vertical alignment, use 0 for the first line.</p>
+                <p><code>duration</code> - Time in seconds that the text will remain on the screen.</p>
+                <p><code>r</code> - Red (1-255)</p>
+                <p><code>g</code> - Green (1-255)</p>
+                <p><code>b</code> - Blue (1-255)</p>
+                <p><code>a</code> - Alpha (1-255)</p>
+                <p><code>...</code> - The text that will be drawn</p>
+                <p>Avoid calling this during the <code>paint</code> event.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-draw_hitboxes">client.draw_hitboxes</h3>
+                <p><strong>syntax:</strong> <em>client.draw_hitboxes(entindex, duration, hitboxes, r, g, b, a, tick)</em></p>
+                <p><code>entindex</code> - Entity index</p>
+                <p><code>duration</code> - Time in seconds</p>
+                <p><code>hitboxes</code> - Either the hitbox index, an array of hitbox indices, or 19 for all hitboxes</p>
+                <p><code>r</code> - Red (1-255)</p>
+                <p><code>g</code> - Green (1-255)</p>
+                <p><code>b</code> - Blue (1-255)</p>
+                <p><code>a</code> - Alpha (1-255)</p>
+                <p><code>tick</code> - Optional integer</p>
+                <p>Draws hitbox overlays. Avoid calling this during the <code>paint</code> event.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-random_int">client.random_int</h3>
+                <p><strong>syntax:</strong> <em>client.random_int(minimum, maximum)</em></p>
+                <p><code>minimum</code> - Lowest possible result</p>
+                <p><code>maximum</code> - Highest possible result</p>
+                <p>Returns a random integer between minimum and maximum.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-random_float">client.random_float</h3>
+                <p><strong>syntax:</strong> <em>client.random_float(minimum, maximum)</em></p>
+                <p><code>minimum</code> - Lowest possible result</p>
+                <p><code>maximum</code> - Highest possible result</p>
+                <p>Returns a random float between minimum and maximum.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-screen_size">client.screen_size</h3>
+                <p><strong>syntax:</strong> <em>client.screen_size()</em></p>
+                <p>Returns <code>(width, height)</code>.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-visible">client.visible</h3>
+                <p><strong>syntax:</strong> <em>client.visible(x, y, z)</em></p>
+                <p><code>x</code> - Position in world space</p>
+                <p><code>y</code> - Position in world space</p>
+                <p><code>z</code> - Position in world space</p>
+                <p>Returns true if the position is visible. For example, you could use a player's origin to see if they are visible.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-trace_line">client.trace_line</h3>
+                <p><strong>syntax:</strong> <em>client.trace_line(skip_entindex, from_x, from_y, from_z, to_x, to_y, to_z)</em></p>
+                <p><code>skip_entindex</code> - Ignore this entity while tracing</p>
+                <p><code>from_x</code> - Position in world space</p>
+                <p><code>from_y</code> - Position in world space</p>
+                <p><code>from_z</code> - Position in world space</p>
+                <p><code>to_x</code> - Position in world space</p>
+                <p><code>to_y</code> - Position in world space</p>
+                <p><code>to_z</code> - Position in world space</p>
+                <p>Returns <code>fraction, entindex</code>. <code>fraction</code> is a percentage in the range [0.0, 1.0] that tells you how far the trace went before hitting something, so 1.0 means nothing was hit. <code>entindex</code> is the entity index
+                    that hit, or -1 if no entity was hit.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-trace_bullet">client.trace_bullet</h3>
+                <p><strong>syntax:</strong> <em>client.trace_bullet(from_player, from_x, from_y, from_z, to_x, to_y, to_z, skip_players)</em></p>
+                <p><code>from_player</code> - Entity index of the player whose weapon will be used for this trace</p>
+                <p><code>from_x</code> - Position in world space</p>
+                <p><code>from_y</code> - Position in world space</p>
+                <p><code>from_z</code> - Position in world space</p>
+                <p><code>to_x</code> - Position in world space</p>
+                <p><code>to_y</code> - Position in world space</p>
+                <p><code>to_z</code> - Position in world space</p>
+                <p><code>skip_players</code> - Optional, pass <code>true</code> to skip expensive hitbox checks.</p>
+                <p>Returns <code>entindex, damage</code>. Entindex is <code>nil</code> when no player is hit or if players are skipped.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-scale_damage">client.scale_damage</h3>
+                <p><strong>syntax:</strong> <em>client.scale_damage(entindex, hitgroup, damage)</em></p>
+                <p><code>entindex</code> - Player entity index</p>
+                <p><code>hitgroup</code> - Hit group index</p>
+                <p><code>damage</code> - Damage</p>
+                <p>Returns adjusted damage for the specified hitgroup</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-delay_call">client.delay_call</h3>
+                <p><strong>syntax:</strong> <em>client.delay_call(delay, callback, ...)</em></p>
+                <p><code>delay</code> - Time in seconds to wait before calling <code>callback</code>.</p>
+                <p><code>callback</code> - The lua function that will be called after <code>delay</code> seconds.</p>
+                <p><code>...</code> - Optional arguments that will be passed to the callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-latency">client.latency</h3>
+                <p><strong>syntax:</strong> <em>client.latency()</em></p>
+                <p>Returns your latency in seconds.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-camera_angles">client.camera_angles</h3>
+                <p><strong>syntax:</strong> <em>client.camera_angles()</em></p>
+                <p>Returns <code>pitch, yaw, roll</code> of where you are looking.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-camera_position">client.camera_position</h3>
+                <p><strong>syntax:</strong> <em>client.camera_position()</em></p>
+                <p>Returns <code>x, y, z</code> world coordinates of the camera position.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-timestamp">client.timestamp</h3>
+                <p><strong>syntax:</strong> <em>client.timestamp()</em></p>
+                <p>Returns high precision timestamp in milliseconds.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-eye_position">client.eye_position</h3>
+                <p><strong>syntax:</strong> <em>client.eye_position()</em></p>
+                <p>Returns <code>x, y, z</code> world coordinates of the local player's eye position, or <code>nil</code> on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-set_clan_tag">client.set_clan_tag</h3>
+                <p><strong>syntax:</strong> <em>client.set_clan_tag(...)</em></p>
+                <p><code>...</code> - The text that will be drawn</p>
+                <p>The clan tag is removed if no argument is passed or if it is an empty string. Additional arguments will be concatenated similar to <code>client.log</code>.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-system_time">client.system_time</h3>
+                <p><strong>syntax:</strong> <em>client.system_time()</em></p>
+                <p>Returns <code>hour, minute, seconds, milliseconds</code>.</p>
+                <p> local h, m, s, ms = client.system_time()</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-unix_time">client.unix_time</h3>
+                <p><strong>syntax:</strong> <em>client.unix_time()</em></p>
+                <p>Returns <code>hour, minute, seconds, milliseconds</code>.</p>
+                <p> local time = client.unix_time()</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-reload_active_scripts">client.reload_active_scripts</h3>
+                <p><strong>syntax:</strong> <em>client.reload_active_scripts()</em></p>
+                <p>Reloads all scripts the following frame.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-create_interface">client.create_interface</h3>
+                <p><strong>syntax:</strong> <em>client.create_interface(module_name, interface_name)</em></p>
+                <p><code>module_name</code> - Filename of the module that contains the interface</p>
+                <p><code>interface_name</code> - Name of the interface</p>
+                <p>Returns a pointer to the interface, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-find_signature">client.find_signature</h3>
+                <p><strong>syntax:</strong> <em>client.find_signature(module_name, pattern)</em></p>
+                <p><code>module_name</code> - Filename of the module that contains the interface</p>
+                <p><code>pattern</code> - String in the form of <code>'\x01\x02\xCC\x03'</code></p>
+                <p>Finds the specified pattern and returns its address, or nil if not found. CC is wildcard.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-key_state">client.key_state</h3>
+                <p><strong>syntax:</strong> <em>client.key_state(virtual_key)</em></p>
+                <p><code>virtual_key</code> - Virtual key index</p>
+                <p>Returns true if the key is pressed.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-get_model_name">client.get_model_name</h3>
+                <p><strong>syntax:</strong> <em>client.get_model_name(model_index)</em></p>
+                <p><code>model_index</code> - Model index</p>
+                <p>Returns model name, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="client-register_esp_flag">client.register_esp_flag</h3>
+                <p><strong>syntax:</strong> <em>client.register_esp_flag(flag, r, g, b, callback)</em></p>
+                <p><code>flag</code> - String of text that will be shown when callback returns true</p>
+                <p><code>r</code> - Red (1-255)</p>
+                <p><code>g</code> - Green (1-255)</p>
+                <p><code>b</code> - Blue (1-255)</p>
+                <p><code>callback</code> - Function that will be called for each entity while drawing the ESP</p>
+                <p>Requires "Flags" is enabled in Player ESP</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="config-load">config.load</h3>
+                <p><strong>syntax:</strong> <em>config.load(name, tab_name, container_name)</em></p>
+                <p><code>name</code> - Name of the config</p>
+                <p><code>tab_name</code> - Optional name of the tab</p>
+                <p><code>container_name</code> - Optional name of the container</p>
+                <p>To load the specified config: <code>config.load('Config name here')</code> To load a tab from the specified config: <code>config.load('Config name here', 'Tab name here')</code> To load a container from the specified config: <code>config.load('Config name here', 'Tab name here', 'Container name here')</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="config-export">config.export</h3>
+                <p><strong>syntax:</strong> <em>config.export()</em></p>
+                <p>Returns the current config as a string</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-set_string">cvar.set_string</h3>
+                <p><strong>syntax:</strong> <em>cvar.set_string(value)</em></p>
+                <p><code>value</code> - String value</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-get_string">cvar.get_string</h3>
+                <p><strong>syntax:</strong> <em>cvar.get_string()</em></p>
+                <p>Returns nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-set_float">cvar.set_float</h3>
+                <p><strong>syntax:</strong> <em>cvar.set_float(value)</em></p>
+                <p><code>value</code> - Float value</p>
+                <p><code>cvar.cl_interp_ratio:set_float(1)</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-set_raw_float">cvar.set_raw_float</h3>
+                <p><strong>syntax:</strong> <em>cvar.set_raw_float(value)</em></p>
+                <p><code>value</code> - Float value</p>
+                <p>This sets the float value without changing the integer and string values.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-get_float">cvar.get_float</h3>
+                <p><strong>syntax:</strong> <em>cvar.get_float()</em></p>
+                <p>Returns nil if called on a ConCommand.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-set_int">cvar.set_int</h3>
+                <p><strong>syntax:</strong> <em>cvar.set_int(value)</em></p>
+                <p><code>value</code> - Integer value</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-set_raw_int">cvar.set_raw_int</h3>
+                <p><strong>syntax:</strong> <em>cvar.set_raw_int(value)</em></p>
+                <p><code>value</code> - Integer value</p>
+                <p>This sets the integer value without changing the float and string values.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-get_int">cvar.get_int</h3>
+                <p><strong>syntax:</strong> <em>cvar.get_int()</em></p>
+                <p>Returns nil if called on a ConCommand.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="cvar-invoke_callback">cvar.invoke_callback</h3>
+                <p><strong>syntax:</strong> <em>cvar.invoke_callback()</em></p>
+                <p>For ConCommands, optionally pass extra arguments and they will be forwarded to the callback. For ConVars, optionally pass an extra integer argument specifying the index of the change callback to invoke, otherwise all change callbacks will
+                    be invoked.</p>
+                <p> <code>cvar.snd_setmixer:invoke_callback("Ambient", "vol", "0")</code> -- equivalent to typing "snd_setmixer Ambient vol 0" in console</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="database-write">database.write</h3>
+                <p><strong>syntax:</strong> <em>database.write(key, value)</em></p>
+                <p><code>key</code> - Name of the database, must be a string</p>
+                <p><code>value</code> - Value or table</p>
+                <p>Saves a persistent table, possibly overwriting any existing data</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="database-read">database.read</h3>
+                <p><strong>syntax:</strong> <em>database.read(key)</em></p>
+                <p><code>key</code> - Unique string identifier</p>
+                <p>Returns a table</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_local_player">entity.get_local_player</h3>
+                <p><strong>syntax:</strong> <em>entity.get_local_player()</em></p>
+                <p>Returns the entity index for the local player, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_all">entity.get_all</h3>
+                <p><strong>syntax:</strong> <em>entity.get_all(classname)</em></p>
+                <p><code>classname</code> - Optional string that specifies the class name of entities that will be added to the list, for example <code>"CCSPlayer"</code>.</p>
+                <p>Returns an array of entity indices. Pass no arguments for all entities.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_players">entity.get_players</h3>
+                <p><strong>syntax:</strong> <em>entity.get_players(enemies_only)</em></p>
+                <p><code>enemies_only</code> - Optional. If <code>true</code> then you and the players on your team will not be added to the list.</p>
+                <p>Returns an array of player entity indices. Dormant and dead players will not be added to the list.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_game_rules">entity.get_game_rules</h3>
+                <p><strong>syntax:</strong> <em>entity.get_game_rules()</em></p>
+                <p>Returns entity index of CCSGameRulesProxy instance, or nil if none exists.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_player_resource">entity.get_player_resource</h3>
+                <p><strong>syntax:</strong> <em>entity.get_player_resource()</em></p>
+                <p>Returns entity index of CCSPlayerResource instance, or nil if none exists.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_classname">entity.get_classname</h3>
+                <p><strong>syntax:</strong> <em>entity.get_classname(ent)</em></p>
+                <p><code>ent</code> - Entity index.</p>
+                <p>Returns the name of the entity's class, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-set_prop">entity.set_prop</h3>
+                <p><strong>syntax:</strong> <em>entity.set_prop(ent, propname, value, array_index)</em></p>
+                <p><code>ent</code> - Entity index.</p>
+                <p><code>propname</code> - Name of the networked property.</p>
+                <p><code>value</code> - The property will be set to this value. For vectors or angles, separate the components by commas.</p>
+                <p><code>array_index</code> - Optional. If <code>propname</code> is an array, the value at this array index will be set.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_prop">entity.get_prop</h3>
+                <p><strong>syntax:</strong> <em>entity.get_prop(ent, propname, array_index)</em></p>
+                <p><code>ent</code> - Entity index.</p>
+                <p><code>propname</code> - Name of the networked property.</p>
+                <p><code>array_index</code> - Optional. If <code>propname</code> is an array, the value at this array index will be returned.</p>
+                <p>Returns the value of the property, or nil on failure. For vectors or angles, this returns three values.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-is_enemy">entity.is_enemy</h3>
+                <p><strong>syntax:</strong> <em>entity.is_enemy(ent)</em></p>
+                <p><code>ent</code> - Entity index.</p>
+                <p>Returns true if the entity is on the other team.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-is_alive">entity.is_alive</h3>
+                <p><strong>syntax:</strong> <em>entity.is_alive(ent)</em></p>
+                <p><code>ent</code> - Entity index.</p>
+                <p>Returns true if the player is not dead.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-is_dormant">entity.is_dormant</h3>
+                <p><strong>syntax:</strong> <em>entity.is_dormant(ent)</em></p>
+                <p><code>ent</code> - Entity index.</p>
+                <p>Returns true if the player is not dormant.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_player_name">entity.get_player_name</h3>
+                <p><strong>syntax:</strong> <em>entity.get_player_name(ent)</em></p>
+                <p><code>ent</code> - Player entity index.</p>
+                <p>Returns the player's name, or the string <code>"unknown"</code> on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_player_weapon">entity.get_player_weapon</h3>
+                <p><strong>syntax:</strong> <em>entity.get_player_weapon(ent)</em></p>
+                <p><code>ent</code> - Player entity index.</p>
+                <p>Returns the entity index of the player's active weapon, or nil if the player is not alive, dormant, etc.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-hitbox_position">entity.hitbox_position</h3>
+                <p><strong>syntax:</strong> <em>entity.hitbox_position(player, hitbox)</em></p>
+                <p><code>player</code> - Entity index of the player.</p>
+                <p><code>hitbox</code> - Either a string of the hitbox name, or an integer index of the hitbox.</p>
+                <p>Returns world coordinates <code>x, y, z</code>, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_steam64">entity.get_steam64</h3>
+                <p><strong>syntax:</strong> <em>entity.get_steam64(player)</em></p>
+                <p><code>player</code> - Entity index of the player.</p>
+                <p>Returns steamID3, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_bounding_box">entity.get_bounding_box</h3>
+                <p><strong>syntax:</strong> <em>entity.get_bounding_box(player)</em></p>
+                <p><code>player</code> - Entity index of the player.</p>
+                <p>Returns <code>x1, y1, x2, y2, alpha_multiplier</code>. The contents of <code>x1, y1, x2, y2</code> must be ignored when <code>alpha_multiplier</code> is zero, which indicates that the bounding box is invalid and should not be drawn.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_origin">entity.get_origin</h3>
+                <p><strong>syntax:</strong> <em>entity.get_origin(player)</em></p>
+                <p><code>player</code> - Entity index</p>
+                <p>Returns <code>x, y, z</code> world coordinates of the entity's origin, or nil if the entity is dormant and dormant ESP information is not available.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="entity-get_esp_data">entity.get_esp_data</h3>
+                <p><strong>syntax:</strong> <em>entity.get_esp_data(player)</em></p>
+                <p><code>player</code> - Entity index</p>
+                <p>Returns a table containing <code>alpha</code>, <code>health</code>, and <code>weapon_id</code>, or nil on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-realtime">globals.realtime</h3>
+                <p><strong>syntax:</strong> <em>globals.realtime()</em></p>
+                <p>Returns the local time in seconds.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-curtime">globals.curtime</h3>
+                <p><strong>syntax:</strong> <em>globals.curtime()</em></p>
+                <p>Returns the game time in seconds. This number is synchronized with the server.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-frametime">globals.frametime</h3>
+                <p><strong>syntax:</strong> <em>globals.frametime()</em></p>
+                <p>Returns the number of seconds elapsed during the last game frame.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-absoluteframetime">globals.absoluteframetime</h3>
+                <p><strong>syntax:</strong> <em>globals.absoluteframetime()</em></p>
+                <p>Returns the number of seconds elapsed during the last game frame.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-maxplayers">globals.maxplayers</h3>
+                <p><strong>syntax:</strong> <em>globals.maxplayers()</em></p>
+                <p>Returns the maximum number of players in the server.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-tickcount">globals.tickcount</h3>
+                <p><strong>syntax:</strong> <em>globals.tickcount()</em></p>
+                <p>Returns the number of ticks elapsed in the server.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-tickinterval">globals.tickinterval</h3>
+                <p><strong>syntax:</strong> <em>globals.tickinterval()</em></p>
+                <p>Returns the time elapsed in one game tick in seconds.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-framecount">globals.framecount</h3>
+                <p><strong>syntax:</strong> <em>globals.framecount()</em></p>
+                <p>Returns the number of frames since the game started</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-mapname">globals.mapname</h3>
+                <p><strong>syntax:</strong> <em>globals.mapname()</em></p>
+                <p>Returns the name of the loaded map, or nil if you are not in game.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-lastoutgoingcommand">globals.lastoutgoingcommand</h3>
+                <p><strong>syntax:</strong> <em>globals.lastoutgoingcommand()</em></p>
+                <p>Returns the command number of the last outgoing command.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-oldcommandack">globals.oldcommandack</h3>
+                <p><strong>syntax:</strong> <em>globals.oldcommandack()</em></p>
+                <p>Returns the command number of the previous server-acknowledged command.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-commandack">globals.commandack</h3>
+                <p><strong>syntax:</strong> <em>globals.commandack()</em></p>
+                <p>Returns the command number of the most recent server-acknowledged command.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="globals-chokedcommands">globals.chokedcommands</h3>
+                <p><strong>syntax:</strong> <em>globals.chokedcommands()</em></p>
+                <p>Returns the number of choked commands, i.e. the number of commands that haven't yet been sent to the server.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="panorama-open">panorama.open</h3>
+                <p><strong>syntax:</strong> <em>panorama.open(panel)</em></p>
+                <p><code>panel</code> - Optional panel name</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="panorama-loadstring">panorama.loadstring</h3>
+                <p><strong>syntax:</strong> <em>panorama.loadstring(js_code, panel)</em></p>
+                <p><code>js_code</code> - String containing JavaScript code</p>
+                <p><code>panel</code> - Optional panel name</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-get_name">materialsystem.get_name</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.get_name()</em></p>
+                <p>Returns name of the material</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-reload">materialsystem.reload</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.reload()</em></p>
+                <p>Resets the material</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-color_modulate">materialsystem.color_modulate</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.color_modulate(r, g, b)</em></p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-alpha_modulate">materialsystem.alpha_modulate</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.alpha_modulate(alpha)</em></p>
+                <p><code>alpha</code> - Opacity (0-255)</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-set_shader_param">materialsystem.set_shader_param</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.set_shader_param(param_name, value, force)</em></p>
+                <p><code>param_name</code> - Name of the shader parameter</p>
+                <p><code>value</code> - New value</p>
+                <p><code>force</code> - Optional boolean. Add the var if it does not exist in the material</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-get_shader_param">materialsystem.get_shader_param</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.get_shader_param(param_name)</em></p>
+                <p><code>param_name</code> - Name of the shader parameter</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-set_material_var_flag">materialsystem.set_material_var_flag</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.set_material_var_flag(index, enabled)</em></p>
+                <p><code>index</code> - Index of MaterialVarFlags_t</p>
+                <p><code>enabled</code> - Boolean</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-get_material_var_flag">materialsystem.get_material_var_flag</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.get_material_var_flag(index)</em></p>
+                <p><code>index</code> - Index of MaterialVarFlags_t</p>
+                <p>Returns true if the specified flag is set</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-find_material">materialsystem.find_material</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.find_material(path, force_load)</em></p>
+                <p><code>path</code> - Path to material including filename</p>
+                <p><code>force_load</code> - Optional boolean. Load the material if it isn't loaded</p>
+                <p>Returns a reference to the material</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-find_materials">materialsystem.find_materials</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.find_materials(partial_path, force_load)</em></p>
+                <p><code>partial_path</code> - Partial path to material</p>
+                <p><code>force_load</code> - Optional boolean. Load each material if it isn't loaded</p>
+                <p>Returns a table of references to materials that have partial_path in their name</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-find_texture">materialsystem.find_texture</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.find_texture(path)</em></p>
+                <p><code>path</code> - Path to texture including filename</p>
+                <p>Returns a reference to the texture that can be used with set_shader_param</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-get_model_materials">materialsystem.get_model_materials</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.get_model_materials(entindex)</em></p>
+                <p><code>entindex</code> - Entity index</p>
+                <p>Returns a table of references to materials used by the entity</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-arms_material">materialsystem.arms_material</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.arms_material()</em></p>
+                <p>Returns a reference to the arms material when 'Viewmodel arms' is enabled</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="materialsystem-chams_material">materialsystem.chams_material</h3>
+                <p><strong>syntax:</strong> <em>materialsystem.chams_material()</em></p>
+                <p>Returns a reference to the player chams material</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="plist-set">plist.set</h3>
+                <p><strong>syntax:</strong> <em>plist.set(entindex, field, value)</em></p>
+                <p><code>entindex</code> - Player index</p>
+                <p><code>field</code> - Name of the field</p>
+                <p><code>value</code> - Value of the field</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="plist-get">plist.get</h3>
+                <p><strong>syntax:</strong> <em>plist.get(entindex, field)</em></p>
+                <p><code>entindex</code> - Player index</p>
+                <p><code>field</code> - Name of the field</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-text">renderer.text</h3>
+                <p><strong>syntax:</strong> <em>renderer.text(x, y, r, g, b, a, flags, max_width, ...)</em></p>
+                <p><code>x</code> - Screen coordinate</p>
+                <p><code>y</code> - Screen coordinate</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p><code>flags</code> - "+" for large text, "-" for small text, "c" for centered text, "r" for right-aligned text, "b" for bold text, "d" for high DPI support. "c" can be combined with other flags. <code>nil</code> can be specified for normal
+                    sized uncentered text.</p>
+                <p><code>max_width</code> - Text will be clipped if it exceeds this width in pixels. Use <code>0</code> for no limit.</p>
+                <p><code>...</code> - Text that will be drawn</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-measure_text">renderer.measure_text</h3>
+                <p><strong>syntax:</strong> <em>renderer.measure_text(flags, ...)</em></p>
+                <p><code>flags</code> - "+" for large text, "-" for small text, or <code>nil</code> for normal sized text.</p>
+                <p><code>...</code> - Text that will be measured</p>
+                <p>Returns <code>width, height</code>. This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-rectangle">renderer.rectangle</h3>
+                <p><strong>syntax:</strong> <em>renderer.rectangle(x, y, w, h, r, g, b, a)</em></p>
+                <p><code>x</code> - Screen coordinate</p>
+                <p><code>y</code> - Screen coordinate</p>
+                <p><code>w</code> - Width in pixels</p>
+                <p><code>h</code> - Height in pixels</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-line">renderer.line</h3>
+                <p><strong>syntax:</strong> <em>renderer.line(xa, ya, xb, yb, r, g, b, a)</em></p>
+                <p><code>xa</code> - Screen coordinate of point A</p>
+                <p><code>ya</code> - Screen coordinate of point A</p>
+                <p><code>xb</code> - Screen coordinate of point B</p>
+                <p><code>yb</code> - Screen coordinate of point B</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-gradient">renderer.gradient</h3>
+                <p><strong>syntax:</strong> <em>renderer.gradient(x, y, w, h, r1, g1, b1, a1, r2, g2, b2, a2, ltr)</em></p>
+                <p><code>x</code> - Screen coordinate</p>
+                <p><code>y</code> - Screen coordinate</p>
+                <p><code>w</code> - Width in pixels</p>
+                <p><code>h</code> - Height in pixels</p>
+                <p><code>r1</code> - Red (0-255)</p>
+                <p><code>g1</code> - Green (0-255)</p>
+                <p><code>b1</code> - Blue (0-255)</p>
+                <p><code>a1</code> - Alpha (0-255)</p>
+                <p><code>r2</code> - Red (0-255)</p>
+                <p><code>g2</code> - Green (0-255)</p>
+                <p><code>b2</code> - Blue (0-255)</p>
+                <p><code>a2</code> - Alpha (0-255)</p>
+                <p><code>ltr</code> - Left to right. Pass <code>true</code> for horizontal gradient, or <code>false</code> for vertical.</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-circle">renderer.circle</h3>
+                <p><strong>syntax:</strong> <em>renderer.circle(x, y, r, g, b, a, radius, start_degrees, percentage)</em></p>
+                <p><code>x</code> - Screen coordinate</p>
+                <p><code>y</code> - Screen coordinate</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p><code>radius</code> - Radius of the circle in pixels.</p>
+                <p><code>start_degrees</code> - 0 is the right side, 90 is the bottom, 180 is the left, 270 is the top.</p>
+                <p><code>percentage</code> - Must be within [0.0-1.0]. 1.0 is a full circle, 0.5 is a half circle, etc.</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-circle_outline">renderer.circle_outline</h3>
+                <p><strong>syntax:</strong> <em>renderer.circle_outline(x, y, r, g, b, a, radius, start_degrees, percentage, thickness)</em></p>
+                <p><code>x</code> - Screen coordinate</p>
+                <p><code>y</code> - Screen coordinate</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p><code>radius</code> - Radius of the circle in pixels.</p>
+                <p><code>start_degrees</code> - 0 is the right side, 90 is the bottom, 180 is the left, 270 is the top.</p>
+                <p><code>percentage</code> - Must be within [0.0-1.0]. 1.0 is a full circle, 0.5 is a half circle, etc.</p>
+                <p><code>thickness</code> - Thickness of the outline in pixels.</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-triangle">renderer.triangle</h3>
+                <p><strong>syntax:</strong> <em>renderer.triangle(x0, y0, x1, y1, x2, y2, r, g, b, a)</em></p>
+                <p><code>x0</code> - Screen coordinate X for point A</p>
+                <p><code>y0</code> - Screen coordinate Y for point A</p>
+                <p><code>x1</code> - Screen coordinate X for point B</p>
+                <p><code>y1</code> - Screen coordinate Y for point B</p>
+                <p><code>x2</code> - Screen coordinate X for point C</p>
+                <p><code>y2</code> - Screen coordinate Y for point C</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p>This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-world_to_screen">renderer.world_to_screen</h3>
+                <p><strong>syntax:</strong> <em>renderer.world_to_screen(x, y, z)</em></p>
+                <p><code>x</code> - Position in world space</p>
+                <p><code>y</code> - Position in world space</p>
+                <p><code>z</code> - Position in world space</p>
+                <p>Returns two screen coordinates (x, y), or <code>nil</code> if the world position is not visible on your screen. This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-indicator">renderer.indicator</h3>
+                <p><strong>syntax:</strong> <em>renderer.indicator(r, g, b, a, ...)</em></p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (0-255)</p>
+                <p><code>...</code> - The text that will be drawn</p>
+                <p>Returns the Y screen coordinate (vertical offset) of the drawn text, or nil on failure. This can only be called from the <code>paint</code> callback.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-texture">renderer.texture</h3>
+                <p><strong>syntax:</strong> <em>renderer.texture(id, x, y, w, h, r, g, b, a, mode)</em></p>
+                <p><code>id</code> - Texture ID</p>
+                <p><code>x</code> - X screen coordinate</p>
+                <p><code>y</code> - Y screen coordinate</p>
+                <p><code>w</code> - Width</p>
+                <p><code>h</code> - Height</p>
+                <p><code>r</code> - Red (0-255)</p>
+                <p><code>g</code> - Green (0-255)</p>
+                <p><code>b</code> - Blue (0-255)</p>
+                <p><code>a</code> - Alpha (1-255)</p>
+                <p><code>mode</code> - Optional string: "f" for fill, "r" for repeat, otherwise automatic</p>
+                <p>In fill mode, the texture will be stretched to the specified size. This may cause textures to appear blurry if the specified size is not the same as the texture's size. In repeat mode, the texture will be tiled.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-load_svg">renderer.load_svg</h3>
+                <p><strong>syntax:</strong> <em>renderer.load_svg(contents, width, height)</em></p>
+                <p><code>contents</code> - SVG file contents</p>
+                <p><code>width</code> - Width</p>
+                <p><code>height</code> - Height</p>
+                <p>Returns a texture ID that can be used with renderer.texture, or nil on failure</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-load_png">renderer.load_png</h3>
+                <p><strong>syntax:</strong> <em>renderer.load_png(contents, width, height)</em></p>
+                <p><code>contents</code> - PNG file contents</p>
+                <p><code>width</code> - Width</p>
+                <p><code>height</code> - Height</p>
+                <p>Returns a texture ID that can be used with renderer.texture, or nil on failure</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-load_jpg">renderer.load_jpg</h3>
+                <p><strong>syntax:</strong> <em>renderer.load_jpg(contents, width, height)</em></p>
+                <p><code>contents</code> - JPG file contents</p>
+                <p><code>width</code> - Width</p>
+                <p><code>height</code> - Height</p>
+                <p>Returns a texture ID that can be used with renderer.texture, or nil on failure</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="renderer-load_rgba">renderer.load_rgba</h3>
+                <p><strong>syntax:</strong> <em>renderer.load_rgba(contents, width, height)</em></p>
+                <p><code>contents</code> - RGBA buffer</p>
+                <p><code>width</code> - Width</p>
+                <p><code>height</code> - Height</p>
+                <p>Returns a texture ID that can be used with renderer.texture, or nil on failure</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_checkbox">ui.new_checkbox</h3>
+                <p><strong>syntax:</strong> <em>ui.new_checkbox(tab, container, name)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this control will be added.</p>
+                <p><code>name</code> - The name of the checkbox.</p>
+                <p>Returns a special value that can be passed to <code>ui.get</code> and <code>ui.set</code>, or throws an error on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_slider">ui.new_slider</h3>
+                <p><strong>syntax:</strong> <em>ui.new_slider(tab, container, name, min, max, init_value, show_tooltip, unit, scale, tooltips)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this control will be added.</p>
+                <p><code>name</code> - The name of the slider.</p>
+                <p><code>min</code> - The minimum value that can be set using the slider.</p>
+                <p><code>max</code> - The maximum value that can be set using the slider.</p>
+                <p><code>init_value</code> - Optional integer. The initial value. If not provided, the initial value will be <code>min</code>.</p>
+                <p><code>show_tooltip</code> - Optional boolean. <code>true</code> if the slider should display its current value.</p>
+                <p><code>unit</code> - Optional string that is two characters or less. This will be appended to the display value. For example, "<code>px</code>" for pixels or "<code>%</code>" for a percentage.</p>
+                <p><code>scale</code> - Optional The display value will be multiplied by this scale. For example, 0.1 will make a slider with the range [0-1800] show as 0.0-180.0 with one decimal place.</p>
+                <p><code>tooltips</code> - Optional table used to override the tooltip for the specified values. The key must be within <code>min</code>-<code>max</code>. The value is a string that will be shown instead of the numeric value whenever that
+                    value is selected.</p>
+                <p>Returns a special value that can be passed to <code>ui.get</code> and <code>ui.set</code>, or throws an error on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_combobox">ui.new_combobox</h3>
+                <p><strong>syntax:</strong> <em>ui.new_combobox(tab, container, name, ...)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this control will be added.</p>
+                <p><code>name</code> - The name of the combobox.</p>
+                <p><code>...</code> - One or more comma separated string values that will be added to the combobox. Alternatively, a table of strings that will be added.</p>
+                <p>Returns a special value that can be passed to <code>ui.get</code> and <code>ui.set</code>, or throws an error on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_multiselect">ui.new_multiselect</h3>
+                <p><strong>syntax:</strong> <em>ui.new_multiselect(tab, container, name, ...)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this control will be added.</p>
+                <p><code>name</code> - The name of the multiselect.</p>
+                <p><code>...</code> - One or more comma separated string values that will be added to the combobox. Alternatively, a table of strings that will be added.</p>
+                <p>Returns a special value that can be passed to <code>ui.get</code> and <code>ui.set</code>, or throws an error on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_hotkey">ui.new_hotkey</h3>
+                <p><strong>syntax:</strong> <em>ui.new_hotkey(tab, container, name, inline, default_hotkey)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this control will be added.</p>
+                <p><code>name</code> - The name of the hotkey.</p>
+                <p><code>inline</code> - Optional boolean. If set to true, the hotkey will be placed to the right of the preceding menu item.</p>
+                <p><code>default_hotkey</code> - Optional virtual key</p>
+                <p>Returns a special value that can be passed to <code>ui.get</code> to see if the hotkey is pressed, or throws an error on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_button">ui.new_button</h3>
+                <p><strong>syntax:</strong> <em>ui.new_button(tab, container, name, callback)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this checkbox will be added.</p>
+                <p><code>name</code> - The name of the button.</p>
+                <p><code>callback</code> - The lua function that will be called when the button is pressed.</p>
+                <p>Throws an error on failure. The return value should not be used with <code>ui.set</code> or <code>ui.get</code>.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_color_picker">ui.new_color_picker</h3>
+                <p><strong>syntax:</strong> <em>ui.new_color_picker(tab, container, name, r, g, b, a)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this checkbox will be added.</p>
+                <p><code>name</code> - The name of the color picker. This will not be shown, it is only used to identify this item in saved configs.</p>
+                <p><code>r</code> - Optional initial red value (0-255)</p>
+                <p><code>g</code> - Optional initial green value (0-255)</p>
+                <p><code>b</code> - Optional initial blue value (0-255)</p>
+                <p><code>a</code> - Optional initial alpha value (0-255)</p>
+                <p>Throws an error on failure. The color picker is placed to the right of the previous menu item.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_textbox">ui.new_textbox</h3>
+                <p><strong>syntax:</strong> <em>ui.new_textbox(tab, container, name)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this textbox will be added.</p>
+                <p><code>name</code> - The name of the textbox</p>
+                <p>Throws an error on failure. Returns a special value that can be used with ui.get</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_listbox">ui.new_listbox</h3>
+                <p><strong>syntax:</strong> <em>ui.new_listbox(tab, container, name, items)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA</p>
+                <p><code>container</code> - The name of the existing container to which this listbox will be added</p>
+                <p><code>name</code> - Name</p>
+                <p><code>items</code> - Optional table of items (strings)</p>
+                <p>Throws an error on failure. Returns a special value that can be used with ui.get. Calling ui.get on a listbox will return the zero-based index of the currently selected string.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_string">ui.new_string</h3>
+                <p><strong>syntax:</strong> <em>ui.new_string(name, value)</em></p>
+                <p><code>name</code> - Name</p>
+                <p><code>value</code> - Optional string that specifies the default value.</p>
+                <p>Returns a special value that can be used with <code>ui.get</code> and <code>ui.set</code>. This function does not create any menu items. The value will be stored in configs just like other menu items.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-new_label">ui.new_label</h3>
+                <p><strong>syntax:</strong> <em>ui.new_label(tab, container, name)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA</p>
+                <p><code>container</code> - The name of the existing container to which this listbox will be added</p>
+                <p><code>name</code> - Name</p>
+                <p>Returns a special value that can be used with <code>ui.set</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-reference">ui.reference</h3>
+                <p><strong>syntax:</strong> <em>ui.reference(tab, container, name)</em></p>
+                <p><code>tab</code> - The name of the tab: RAGE, AA, LEGIT, VISUALS, MISC, SKINS, PLAYERS, LUA.</p>
+                <p><code>container</code> - The name of the existing container to which this checkbox will be added.</p>
+                <p><code>name</code> - The name of the menu item.</p>
+                <p>Avoid calling this from inside a function. Returns a reference that can be passed to <code>ui.get</code> and <code>ui.set</code>, or throws an error on failure. This allows you to access a built-in pre-existing menu items. This function
+                    returns multiple values when the specified menu item is followed by unnamed menu items, for example a color picker or a hotkey.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-set">ui.set</h3>
+                <p><strong>syntax:</strong> <em>ui.set(item, value, ...)</em></p>
+                <p><code>item</code> - The result of either <code>ui.new_*</code> or <code>ui.reference</code></p>
+                <p><code>value</code> - The value to which the menu item will be set</p>
+                <p><code>...</code> - Optional. For multiselect comboboxes, you may want to set more than one option.</p>
+                <p>For checkboxes, pass <code>true</code> or <code>false</code>. For a slider, pass a number that is within the slider's minimum/maximum values. For a combobox, pass a string value. For a multiselect combobox, pass zero or more strings. For
+                    referenced buttons, <code>value</code> is ignored and the button's callback is invoked. For color pickers, pass the arguments <code>r, g, b, a</code>.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-get">ui.get</h3>
+                <p><strong>syntax:</strong> <em>ui.get(item)</em></p>
+                <p><code>item</code> - The special value returned by <code>ui.new_checkbox</code>, <code>ui.new_slider</code>, <code>ui.new_combobox</code>, <code>ui.new_hotkey</code>, or <code>ui.reference</code>.</p>
+                <p>For a checkbox, returns <code>true</code> or <code>false</code>. For a slider, returns an integer. For a combobox, returns a string. For a multiselect combobox, returns an array of strings. For a hotkey, returns <code>true</code> if the
+                    hotkey is active. For a color picker, returns <code>r, g, b, a</code>. Throws an error on failure.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-set_callback">ui.set_callback</h3>
+                <p><strong>syntax:</strong> <em>ui.set_callback(item, callback)</em></p>
+                <p><code>item</code> - The special value returned by <code>ui.new_*</code>. Do not try passing a reference to an existing menu item.</p>
+                <p><code>callback</code> - Lua function that will be called when the menu item changes values. For example, this will be called when the user checks or unchecks a checkbox.</p>
+                <p><code>item</code> is passed as an argument to the callback function.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-set_visible">ui.set_visible</h3>
+                <p><strong>syntax:</strong> <em>ui.set_visible(item, visible)</em></p>
+                <p><code>item</code> - A menu item reference.</p>
+                <p><code>visible</code> - Boolean. Pass <code>false</code> to hide the control from the menu.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-is_menu_open">ui.is_menu_open</h3>
+                <p><strong>syntax:</strong> <em>ui.is_menu_open()</em></p>
+                <p>Returns <code>true</code> if the menu is currently open.</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-mouse_position">ui.mouse_position</h3>
+                <p><strong>syntax:</strong> <em>ui.mouse_position()</em></p>
+                <p>Returns current mouse coordinates <code>x, y</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-menu_position">ui.menu_position</h3>
+                <p><strong>syntax:</strong> <em>ui.menu_position()</em></p>
+                <p>Returns current window coordinates <code>x, y</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-menu_size">ui.menu_size</h3>
+                <p><strong>syntax:</strong> <em>ui.menu_size()</em></p>
+                <p>Returns current menu size <code>width, height</code></p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+                <h3 id="ui-name">ui.name</h3>
+                <p><strong>syntax:</strong> <em>ui.name(item)</em></p>
+                <p><code>item</code> - Reference to menu item</p>
+                <p>Returns the display name</p>
+                <p><sup><a href="#gamesenseapiforlua">Back to TOC</a></sup></p>
+                <br>
+            </div>
+        </div>
+    </div>
+	
+</body>
+
+</html>
